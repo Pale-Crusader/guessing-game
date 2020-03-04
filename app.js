@@ -101,6 +101,7 @@ for (var index = 0; index < multipleAnswers.length; index++) {
     if (multipleAnswers[0] === oddColorsGuess) {
         alert("Ding!! That's Correct!");
         var score = (score + 1);
+        var index = (index + 10);
     } else if (multipleAnswers[1] === oddColorsGuess) {
         alert("Ding!! That's Correct!");
         var score = (score + 1);
