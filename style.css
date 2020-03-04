@@ -24,7 +24,8 @@ aside {
     padding: 10px;
     width: 50%;
     margin-left: 40%;
-    float: right;
+    display: inline-block;
+    overflow: scroll;
 }
 main img {
     border-radius: 10px;
@@ -33,4 +34,24 @@ main img {
     margin-right: auto;
     margin-left: auto;
     width: 50%;
+}
+footer {
+    background-color: crimson;
+    border-radius: 10px;
+    margin: 5px 5px 5px 5px;
+    height: fit-content;
+    padding: 10px;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+footer ol li {
+    background-color: white;
+    margin: 5px 5px 5px 5px;
+    height: fit-content;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
 }
