@@ -8,6 +8,7 @@ function polarQuestion (inquiry, customRight, customWrong, correctAnswer, wrongA
     The inqury is the question within the prompt.
     customRight and customWrong are customized texts for their applicable alerts.
     correctAnswer and wrongAnswer are for comparison logic (either Y or N, varies per question).
+    all of these parameters are strings
     */
     var response = prompt(userName + ', please using a Y or N as an answer for yes or no: ' + inquiry);
     var response = response.toUpperCase();
@@ -23,7 +24,12 @@ function polarQuestion (inquiry, customRight, customWrong, correctAnswer, wrongA
 }
 
 function numberGuessing (inquiry, correctAnswer, attempts) {
-
+    /*
+    The inqury is the question within the prompt.
+    correctAnswer is for comparison math logic
+    attempts is the number of guesses the user has
+    inquiry is a string, the other two are numbers
+    */
     for (var numberGame = 0; numberGame < attempts; numberGame++) {
         var numberGuess = prompt(inquiry);
         var numberGuess = Number(numberGuess);
@@ -42,7 +48,12 @@ function numberGuessing (inquiry, correctAnswer, attempts) {
 }
 
 function mulitpleChoiceQuestion (inquiry, multipleAnswers, attempts) {
-
+    /*
+    The inqury is the question within the prompt.
+    multipleAnswers is for comparison math logic
+    attempts is the number of guesses the user has
+    inquiry is a string, multipleAnswers is an array, attempts is a number
+    */
    loop1: for (var index = 0; index < attempts; index++) {
         var response = prompt(inquiry);
         var response = response.toLowerCase();
@@ -54,10 +65,23 @@ function mulitpleChoiceQuestion (inquiry, multipleAnswers, attempts) {
                 break loop1;
             }     
         }
-        alert(userName + ', I am very sorry that isn\'t one of my favorite unusual colors. Your number correct so far is: ' + score + '.');
-     }
-}
 
+        alert(userName + ', I am very sorry that isn\'t correct. Your number correct so far is: ' + score + '.');
+     }
+    // displayAllAnswers and the for loop below the ability to have a dynamically generated display of all correct answers.
+    var displayAllAnswers = '';
+    for (var displayAdd = 0; displayAdd < multipleAnswers.length; displayAdd++) {
+        if (displayAdd < (multipleAnswers.length -1)) {
+        displayAllAnswers = (displayAllAnswers + ' ' + multipleAnswers[displayAdd]);
+        } else {
+            displayAllAnswers = (displayAllAnswers + ' and ' + multipleAnswers[displayAdd] + '.');
+        // Does not need to compare on (displayAdd < (multipleAnswers.length - 1))
+        }
+    }
+    alert(userName + ', of the potential correct answers here is the list: ' +displayAllAnswers)
+    console.log('What is ' + displayAllAnswers)
+
+}
 
 
 
@@ -68,7 +92,7 @@ polarQuestion('Do you think I was born in the winter?','I am a Cancer.','I was b
 
 polarQuestion('Do you think I am from the Pacific Northwest?','I was born at Fort Lewis and later served there.','I was born at Fort Lewis and later served there.','Y','N');
 
-polarQuestion('Do you think I am a veteran?','Is the page not loading?','Thank you for paying attention.','Y','N');
+polarQuestion('Do you think I am a veteran?','Thank you for paying attention.','Is the page not loading?','Y','N');
 
 polarQuestion('Do you think I want to be a coder?','Absolutely, that is why I attend Code Fellows.','I really do want to be a coder!','Y','N');
 
