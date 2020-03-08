@@ -1,11 +1,44 @@
 'use strict';
 
-var userName = prompt('Welcome! What is your name?');
-var score = 0;
+/* I am declaring the functions at top.
+Calling/invoking Functions and declaring Global Variables happens below the bottom function declared
+I am including these comments for each function both for my future self and collaborators.
+*/
+
+function introduction() {
+    var userName = '';
+    var introIndexMin = 0;
+    var introIndexMax = 5;
+    var introIndex = introIndexMin;
+    var defaultUserName = 'Friendly Stranger';
+    /* I wanted this function to be reusable, possible with ability to remove default 
+    by simply deleting the later part of the code and removing the introIdex references
+    so that it could loop indefinitely if wanted. I want to make code I can reuse.
+    this could have been a for loop since I decided to add a maximum number of loops,
+    but wanted to practice while loops and though later I may want this in a while loop version
+    */
+    while  (userName === '') {
+        if (userName === '' && introIndex === introIndexMin) {
+            var userName = prompt('Welcome! What is your name?');
+            introIndex++; 
+        } else if (userName === '' && introIndex  < introIndexMax)  {
+            userName = prompt('If we\'re going to get to know each other, I\'ll need to know your name. My name is Matthew Adam Stewart. Would you please tell me your name?');
+            introIndex++;
+        } else {
+            userName = defaultUserName;
+            alert('Well, if you don\'t feel like introducing yourself, I\'ll just call you: ' + userName );
+        }
+    }
+    return userName;
+    /* This returns userName so the function can be assigned to a global userName variable
+    which can be used in my other functions. Most of the other functions operate via display alerts
+    or prompts directly allowing the End User interaction with the function, this function makes something
+    needed by other functions.
+    */
+}
 
 function polarQuestion (inquiry, customRight, customWrong, correctAnswer, wrongAnswer) {
-    /*
-    The inqury is the question within the prompt.
+    /* The inqury is the question within the prompt.
     customRight and customWrong are customized texts for their applicable alerts.
     correctAnswer and wrongAnswer are for comparison logic (either Y or N, varies per question).
     all of these parameters are strings
@@ -23,12 +56,12 @@ function polarQuestion (inquiry, customRight, customWrong, correctAnswer, wrongA
         }
 }
 
-function numberGuessing (inquiry, correctAnswer, attempts) {
-    /*
-    The inqury is the question within the prompt.
+function numberGuessing (inquiry, correctAnswer, attempts, customRight) {
+    /* The inqury is the question within the prompt.
     correctAnswer is for comparison math logic
     attempts is the number of guesses the user has
-    inquiry is a string, the other two are numbers
+    customRight is wording to customize the test of right answers
+    inquiry is a string, the other two are numbers, customRight is a string
     */
     for (var numberGame = 0; numberGame < attempts; numberGame++) {
         var numberGuess = prompt(inquiry);
@@ -38,18 +71,18 @@ function numberGuessing (inquiry, correctAnswer, attempts) {
         } else if (numberGuess > correctAnswer) {
             alert("Too High!");
         } else if (numberGuess === correctAnswer) {
-            alert("WOW!! " + userName + ", Amazing Guess!!!");
+            alert("WOW!! " + userName + ", Correct! " + customRight);
             score = (score + 1);
             break;
         } else {
             alert(userName + ", I am sorry. Really need a NUMERICAL number.");
         }
     }
+    alert('The correct answer was ' + correctAnswer + 'and if you guessed that, congratulations! If not, don\'t feel bad, it was just a fun creative exercise.')
 }
 
 function mulitpleChoiceQuestion (inquiry, multipleAnswers, attempts) {
-    /*
-    The inqury is the question within the prompt.
+    /* The inqury is the question within the prompt.
     multipleAnswers is for comparison math logic
     attempts is the number of guesses the user has
     inquiry is a string, multipleAnswers is an array, attempts is a number
@@ -71,20 +104,26 @@ function mulitpleChoiceQuestion (inquiry, multipleAnswers, attempts) {
     // displayAllAnswers and the for loop below the ability to have a dynamically generated display of all correct answers.
     var displayAllAnswers = '';
     for (var displayAdd = 0; displayAdd < multipleAnswers.length; displayAdd++) {
-        if (displayAdd < (multipleAnswers.length -1)) {
-        displayAllAnswers = (displayAllAnswers + ' ' + multipleAnswers[displayAdd]);
+        if (displayAdd === 0) {
+            displayAllAnswers = (multipleAnswers[displayAdd]);
+        }
+        else if (displayAdd < (multipleAnswers.length -1)) {
+            displayAllAnswers = (displayAllAnswers + ', ' + multipleAnswers[displayAdd]);
         } else {
             displayAllAnswers = (displayAllAnswers + ' and ' + multipleAnswers[displayAdd] + '.');
         // Does not need to compare on (displayAdd < (multipleAnswers.length - 1))
         }
     }
-    alert(userName + ', of the potential correct answers here is the list: ' +displayAllAnswers)
-    console.log('What is ' + displayAllAnswers)
-
+    alert(userName + ', of the potential correct answers here is the list: ' +displayAllAnswers);
 }
 
+/* This is where the global variables are set and functional are called
+userName is ___Extremely__ important for these functions
+*/
 
+var userName = introduction();
 
+var score = 0;
 
 alert(userName + ", it is nice to meet you! I am Matthew and I'd like you to know more about me.");
 
@@ -98,7 +137,7 @@ polarQuestion('Do you think I want to be a coder?','Absolutely, that is why I at
 
 polarQuestion('Do you think I have older sibling(s)?','I am the eldest son.','I am the eldest son.','N','Y');
 
-numberGuessing('As a fun number game, please guess any numerical number.', 3.82, 4);
+numberGuessing('As a fun number game, please guess any numerical number.', 3.82, 4, 'What a truly amazing guess!! The fact you chose a decimal means you think outside the box.');
 
 mulitpleChoiceQuestion(
     'What are some of my favorite unusual colors?',
@@ -106,170 +145,4 @@ mulitpleChoiceQuestion(
     6
     );
 
-alert("I am so glad that you've had a chance to play this guessing game to learn more about me, " + userName + " and your number of correct guesses is " + score + " am looking forward to meeting you soon!.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var score = 0;
-// var userName = prompt('Welcome! What is your name?');
-
-// alert(userName + ", it is nice to meet you! I am Matthew and I'd like you to know more about me.");
-
-// var season = prompt(userName + ", please using a Y or N as an answer for yes or no: Do you think I was born in the winter?");
-// // console.log("Displaying if season letter is capital before toUpperCase: " + season);
-// var season = season.toUpperCase();
-// // console.log("Displaying if season letter is capital after toUpperCase: " + season);
-// if (season == 'Y') {
-//     alert("Sorry, " + userName + ", that is not correct, I was born on midsummer's eve.");
-//     }else if (season == 'N'){
-//     alert(userName + "! Awesome Correct?");
-//     var score = (score + 1);
-//     }else {
-//     alert("I apologize, I really need a Y or N to know if you answered correctly.")
-//     }
-
-
-// var origin = prompt("Still with a Y or N as an answer for yes or no: " + userName + ", do you think I am from the Pacific Northwest?");
-// // console.log("Displaying if origin letter is capital before toUpperCase: " + origin);
-// var origin = origin.toUpperCase();
-// // console.log("Displaying if origin letter is capital after toUpperCase: " + origin);
-// if (origin == 'N') {
-//     alert("Sorry, " + userName + ", that is not correct. I was born at Fort Lewis and later served there");
-//     }else if (origin == 'Y'){
-//     alert(userName + "! Awesome Correct?");
-//     var score = (score + 1);
-//     }else {
-//     alert(username + ", I apologize, I really need a Y or N to know if you answered correctly.")
-//     }
-
-// var military = prompt("Still with a Y or N as an answer for yes or no: Do you think I am a veteran?");
-// // console.log("Displaying if military letter is capital before toUpperCase: " + military);
-// var military = military.toUpperCase();
-// // console.log("Displaying if military letter is capital after toUpperCase: " + military);
-// if (military == 'N') {
-//     alert(userName + ", I am sorry that is not correct. Is the page not loading?");
-//     }else if (military == 'Y'){
-//     alert("You are awesome and correct! Thank you " + userName + " for paying attention.");
-//     var score = (score + 1);
-//     }else {
-//     alert("I am so sorry, I really need a Y or N to know if you answered correctly.")
-//     }
-
-// var goals = prompt("Still with a Y or N as an answer for yes or no: Do you think I want to be a coder?");
-// // console.log("Displaying if goal letter is capital before toUpperCase: " + goals);
-// var goals = goals.toUpperCase();
-// // console.log("Displaying if goal letter is capital after toUpperCase: " + goals);
-// if (goals == 'N') {
-//     alert(userName + ", that is not correct. I was born at Fort Lewis and later served there");
-//     }else if (goals == 'Y'){
-//     alert("You are awesome and correct! Thank you " + userName + " for paying attention.");
-//     var score = (score + 1);
-//     }else {
-//     alert("I am so sorry, I really need a Y or N to know if you answered correctly.")
-//     }
-
-// var eldest = prompt("Still with a Y or N as an answer for yes or no: Do you think I have older sibling(s)?");
-// // console.log("Displaying if goal letter is capital before toUpperCase: " + eldest);
-// var eldest = eldest.toUpperCase();
-// // console.log("Displaying if goal letter is capital after toUpperCase: " + eldest);
-// if (eldest == 'Y') {
-//     alert("I am sorry that is not correct. I am the eldest son.");
-//     }else if (eldest == 'N'){
-//     alert("You are awesome and correct! Thank you " + userName + " for paying attention.");
-//     var score = (score + 1);
-//     }else {
-//     alert("I am so sorry, I really need a Y or N to know if you answered correctly.");
-//     }
-
-// var correctNumber = 3.82;
-// var correctNumber = Number(correctNumber);
-
-// for (var numberGame = 0; numberGame < 4; numberGame++) {
-//     var numberGuess = prompt("As a fun number game, please guess any numerical number.");
-//     var numberGuess = Number(numberGuess);
-//     if (numberGuess < correctNumber) {
-//         alert("Too Low!");
-//     } else if (numberGuess > correctNumber) {
-//         alert("Too High!");
-//     } else if (numberGuess === correctNumber) {
-//         alert("WOW!!" + userName + ", Amazing Guess!!!");
-//         var score = (score + 1);
-//         var numberGame = (numberGame + 10);
-//     } else {
-//         alert(userName + ", I am sorry. Really need a NUMERICAL number.");
-//     }
-// }
-
-// if (numberGame === 3) {
-//     alert("The correct guess is " +correctNumber + ". Hard to guess, I know.");
-// }
-
-// var multipleAnswers = ["scarlet","fuchsia","mauve","canary","magenta","crimson","orange","raspberry","robin shell","antique white"]
-
-// for (var index = 0; index < multipleAnswers.length; index++) {
-//     var oddColorsGuess = prompt("What are some of my favorite unusual colors?");
-//     var oddColorsGuess = oddColorsGuess.toLowerCase();
-//     if (multipleAnswers[0] === oddColorsGuess) {
-//         alert("Ding!! That's Correct!");
-//         var score = (score + 1);
-//         var index = (index + 10);
-//     } else if (multipleAnswers[1] === oddColorsGuess) {
-//         alert("Ding!! That's Correct!");
-//         var score = (score + 1);
-//         var index = (index + 10);
-//     } else if (multipleAnswers[2] === oddColorsGuess) {
-//         alert("Ding!! That's Correct!");
-//         var score = (score + 1);
-//         var index = (index + 10);
-//     } else if (multipleAnswers[3] === oddColorsGuess) {
-//         alert("Ding!! That's Correct!");
-//         var score = (score + 1);
-//         var index = (index + 10);
-//     } else if (multipleAnswers[4] === oddColorsGuess) {
-//         alert("Ding!! That's Correct!");
-//         var score = (score + 1);
-//         var index = (index + 10);
-//     } else if (multipleAnswers[5] === oddColorsGuess) {
-//         alert("Ding!! That's Correct!");
-//         var score = (score + 1);
-//         var index = (index + 10);
-//     } else if (multipleAnswers[6] === oddColorsGuess) {
-//         alert("Ding!! That's Correct!");
-//         var score = (score + 1);
-//         var index = (index + 10);
-//     } else if (multipleAnswers[7] === oddColorsGuess) {
-//         alert("Ding!! That's Correct!");
-//         var score = (score + 1);
-//         var index = (index + 10);
-//     } else if (multipleAnswers[8] === oddColorsGuess) {
-//         alert("Ding!! That's Correct!");
-//         var score = (score + 1);
-//         var index = (index + 10);
-//     } else if (multipleAnswers[9] === oddColorsGuess) {
-//         alert("Ding!! That's Correct!");
-//         var score = (score + 1);
-//         var index = (index + 10);
-//     } else {
-//         alert(userName + ", I am very sorry that isn't one of my favorite unusual colors. Your number correct so far is: " + score)
-//     }
-// }     
-
-// if (index === (multipleAnswers.length - 1)) {
-//     alert(userName + ", in order my favorite unusual colors are scarlet, fuchsia, mauve, canary, magenta, crimson, orange, raspberry, robin shell, and antique white")
-// }
-
-
-// alert("I am so glad that you've had a chance to play this guessing game to learn more about me, " +userName + " and your number of correct guesses is " + score + " am looking forward to meeting you soon!.")
-
-// // Robert Carter Accountability Buddy
-// // Paul Depew Accountability Buddy
+alert("I am so glad that you've had a chance to play this guessing game to learn more about me. " + userName + ", your number of correct guesses is " + score + ". I am looking forward to meeting you soon!.")
