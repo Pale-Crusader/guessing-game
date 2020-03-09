@@ -78,7 +78,7 @@ function numberGuessing (inquiry, correctAnswer, attempts, customRight) {
             alert(userName + ", I am sorry. Really need a NUMERICAL number.");
         }
     }
-    alert('The correct answer was ' + correctAnswer + 'and if you guessed that, congratulations! If not, don\'t feel bad, it was just a fun creative exercise.')
+    alert('The correct answer was ' + correctAnswer + ' and if you guessed that, congratulations! If not, don\'t feel bad, it was just a fun creative exercise.')
 }
 
 function mulitpleChoiceQuestion (inquiry, multipleAnswers, attempts) {
@@ -119,9 +119,12 @@ function mulitpleChoiceQuestion (inquiry, multipleAnswers, attempts) {
 
 /* This is where the global variables are set and functional are called
 userName is ___Extremely__ important for these functions
+totalNumberOfQuestions is used for concatenating the final alert 
 */
 
 var userName = introduction();
+
+var totalNumberOfQuestions = 7;
 
 var score = 0;
 
@@ -145,4 +148,4 @@ mulitpleChoiceQuestion(
     6
     );
 
-alert("I am so glad that you've had a chance to play this guessing game to learn more about me. " + userName + ", your number of correct guesses is " + score + ". I am looking forward to meeting you soon!.")
+alert("I am so glad that you've had a chance to play this guessing game to learn more about me. " + userName + ", your number of correct guesses is " + score + " out of " + totalNumberOfQuestions + ". I am looking forward to meeting you soon!.")
